@@ -11,5 +11,5 @@ keywords = ["cli", "BCV", "tasa", "cambio", "Venezuela"]
 categories = ["command-line-utilities"]
 
 [dependencies]
-reqwest = {version = "0.12.14", features = ["blocking"]}
+reqwest = {version = "0.12.14", features = ["blocking", "native-tls-vendored"]}
 scraper = "0.23"
