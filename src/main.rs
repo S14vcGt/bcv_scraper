@@ -25,26 +25,23 @@ fn main() {
 
     let mut prices: Vec<Tasa>= Vec::new();
 
-    fn get_subnode(selector:&str,price:Select<'_,'_>)->Option<String>{
-        let mut tasa = Option::Some(String::new());
-        for precio in price{
-            tasa = precio.select(&scraper::Selector::parse(selector).unwrap())
-            .next()
-            .map(|price| price.text().collect::<String>());
-        }
-        return tasa;
+    fn get_subnode(selector: &str, price: Select<'_, '_>) -> Option<String> {
+        price.flat_map(|precio| {
+            precio.select(&scraper::Selector::parse(selector).unwrap())
+                .next()
+                .map(|p| p.text().collect::<String>())
+        }).next()
     }
-
     
     for html_price in html_prices{
-        let mut local = scraper::Selector::parse("div.col-sm-6.col-xs-6").unwrap();
-        let moneda = html_price.select(&local);
-        let currency = get_subnode("span",moneda);
-
-        local = scraper::Selector::parse("div.col-sm-6.col-xs-6.centrado").unwrap();
+        let mut local = scraper::Selector::parse("div.col-sm-6.col-xs-6.centrado").unwrap();
         let precio = html_price.select(&local);
         let price = get_subnode("strong",precio);
 
+        local = scraper::Selector::parse("div.col-sm-6.col-xs-6").unwrap();
+        let moneda = html_price.select(&local);
+        let currency = get_subnode("span",moneda);
+        
         
         let tasa = Tasa {
            currency,
@@ -56,7 +53,7 @@ fn main() {
     }
 
     for i in prices {
-        println!("{:?}", i);
+        println!("{}        {}",i.currency.unwrap(),i.price.unwrap());
     }
 
     /*for date in html_date{
@@ -65,8 +62,5 @@ fn main() {
         println!("{:?}", fecha);
     }*/
     
-
-
-
 }
 
