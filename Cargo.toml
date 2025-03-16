@@ -7,7 +7,7 @@ license = "MIT"
 description = "A Command line tool to fetch the BCV exchange rates for the Bolivar"
 readme = "README.md"
 repository = "https://github.com/S14vcGt/bcv_scraper"
-keywords = ["cli", "BCV", "tasa de cambio"]
+keywords = ["cli", "BCV", "tasa", "cambio", "Venezuela"]
 categories = ["command-line-utilities"]
 
 [dependencies]
