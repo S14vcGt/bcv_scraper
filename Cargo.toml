@@ -1,5 +1,5 @@
 [package]
-name = "web_scraper"
+name = "bcv"
 version = "0.1.0"
 edition = "2021"
 
