@@ -19,9 +19,17 @@ El programa consulta la página web oficial del **Banco Central de Venezuela (BC
 
 🔗 URL del sitio web del BCV: [https://www.bcv.org.ve/](https://www.bcv.org.ve/)
 
+🔗 URL del paquete en crates.io: [https://crates.io/crates/bcv](https://crates.io/crates/bcv)
 ---
 
 ## Instalación 🚀
+
+Puedes descargar el paquete de Cargo con el siguiente comando:
+
+```bash
+cargo install bcv
+```
+o si quieres compilarlo localmente, puedes seguir los pasos siguientes:
 
 1. Clona este repositorio en tu máquina local 🖥️:
 
@@ -54,25 +62,6 @@ bcv
 
 El programa mostrará automáticamente las tasas de cambio disponibles para el Bolívar venezolano según el BCV 📈.
 
-### Opciones Adicionales 🎛️
-
-- **Mostrar ayuda** ❓:
-
-  ```bash
-  conversor-bcv --help
-  ```
-
-  Esto mostrará una descripción detallada de cómo usar el programa y las opciones disponibles 📖.
-
-- **Actualizar manualmente los datos** 🔄:
-
-  Si deseas forzar una nueva consulta al sitio del BCV, usa:
-
-  ```bash
-  conversor-bcv --actualizar
-  ```
-
----
 
 ## Ejemplo de Salida 📊
 
