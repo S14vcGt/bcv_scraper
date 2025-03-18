@@ -49,7 +49,7 @@ fn main() {
     }
 
     for i in prices {
-        println!("{}        {}", i.currency.unwrap(), i.price.unwrap());
+        println!("{}        {}", i.currency.unwrap(), i.price.unwrap().replace(',', "."));
     }
 
     for date in html_date {
