@@ -1,6 +1,38 @@
 use scraper::element_ref::Select;
+use clap::{Parser,Args};
+
+#[derive(Parser, Debug)]
+    #[command(author, version, about, long_about = None)]
+    struct Cli {
+        /// The name to greet
+        #[arg(short, long)]
+        name: Option<String>,
+
+        /// A count
+        #[arg(long, default_value_t = 1)]
+        count: u8,
+
+        /// Optional positional argument
+        #[arg()]
+        input_file: Option<String>,
+    }
 
 fn main() {
+
+    let cli = Cli::parse();
+
+        if let Some(name) = cli.name {
+            println!("Hello, {}!", name);
+        } else {
+            println!("Hello, stranger!");
+        }
+
+        println!("Count: {}", cli.count);
+
+        if let Some(file) = cli.input_file {
+            println!("Processing file: {}", file);
+        }
+
     // download the target HTML document
     let response = reqwest::blocking::get("https://www.bcv.org.ve/");
     // get the HTML content from the request response
