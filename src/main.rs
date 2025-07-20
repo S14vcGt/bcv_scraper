@@ -1,37 +1,58 @@
+use std::vec;
+
+use clap::{Args, Parser};
 use scraper::element_ref::Select;
-use clap::{Parser,Args};
 
 #[derive(Parser, Debug)]
-    #[command(author, version, about, long_about = None)]
-    struct Cli {
-        /// The name to greet
-        #[arg(short, long)]
-        name: Option<String>,
-
-        /// A count
-        #[arg(long, default_value_t = 1)]
-        count: u8,
-
-        /// Optional positional argument
-        #[arg()]
-        input_file: Option<String>,
-    }
+#[command(author, version, about, long_about = None)]
+struct Cli {
+    /// The name to greet
+    #[arg(short, long)]
+    name: Option<String>,
+    #[arg(long)]
+    eur: bool,
+    #[arg(long)]
+    cny: bool,
+    #[arg(long)]
+    tl: bool,
+    #[arg(long)]
+    rub: bool,
+    #[arg(long)]
+    usd: bool,
+}
 
 fn main() {
+    let mut currencies: Vec<String> = vec::Vec::new();
 
     let cli = Cli::parse();
 
-        if let Some(name) = cli.name {
-            println!("Hello, {}!", name);
-        } else {
-            println!("Hello, stranger!");
-        }
+    if let Some(name) = cli.name {
+        println!("Hello, {}!", name);
+    } else {
+        println!("Hello, stranger!");
+    }
 
-        println!("Count: {}", cli.count);
+    if cli.usd {
+        currencies.push("USD".to_string());
+    }
 
-        if let Some(file) = cli.input_file {
-            println!("Processing file: {}", file);
-        }
+    if cli.cny {
+        currencies.push("CNY".to_string());
+    }
+
+    if cli.eur {
+        currencies.push("EUR".to_string());
+    }
+
+    if !cli.usd && !cli.cny && !cli.eur && !cli.rub && !cli.tl {
+        currencies.push("USD".to_string());
+        currencies.push("CNY".to_string());
+        currencies.push("EUR".to_string());
+        currencies.push("RUB".to_string());
+        currencies.push("TRY".to_string());
+    }
+
+    println!("currencies selected: {:?}", currencies);
 
     // download the target HTML document
     let response = reqwest::blocking::get("https://www.bcv.org.ve/");
@@ -81,7 +102,16 @@ fn main() {
     }
 
     for i in prices {
-        println!("{}        {}", i.currency.unwrap(), i.price.unwrap().replace(',', "."));
+        if currencies
+            .iter()
+            .any(|currency| currency == &i.currency.clone().unwrap().to_string())
+        {
+            println!(
+                "{}        {}",
+                i.currency.unwrap(),
+                i.price.unwrap().replace(',', ".")
+            );
+        }
     }
 
     for date in html_date {
