@@ -102,15 +102,14 @@ fn main() {
     }
 
     for i in prices {
-        if currencies
-            .iter()
-            .any(|currency| currency == &i.currency.clone().unwrap().to_string())
-        {
-            println!(
-                "{}        {}",
-                i.currency.unwrap(),
-                i.price.unwrap().replace(',', ".")
-            );
+        // Limpiar la cadena de moneda eliminando espacios en blanco
+        if let Some(currency) = &i.currency {
+            let clean_currency = currency.trim();
+            if currencies.iter().any(|c| c == clean_currency) {
+                if let Some(price) = &i.price {
+                    println!("{}        {}", clean_currency, price.replace(',', "."));
+                }
+            }
         }
     }
 
