@@ -1,25 +1,24 @@
 use std::vec;
 
-use clap::{Args, Parser};
+use clap::Parser;
 use scraper::element_ref::Select;
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
 struct Cli {
-    
-    #[arg(long)]
+    #[arg(long, help = "Muestra la tasa en euros (EUR)")]
     eur: bool,
 
-    #[arg(long)]
+    #[arg(long, help = "Muestra la tasa en yuanes chinos (CNY)")]
     cny: bool,
 
-    #[arg(long)]
+    #[arg(long, help = "Muestra la tasa en liras turcas (TRY)")]
     tl: bool,
 
-    #[arg(long)]
+    #[arg(long, help = "Muestra la tasa en rublos rusos (RUB)")]
     rub: bool,
 
-    #[arg(long)]
+    #[arg(long, help = "Muestra la tasa en dólares estadounidenses (USD)")]
     usd: bool,
 }
 
@@ -51,9 +50,9 @@ fn main() {
     }
 
     let client = reqwest::blocking::Client::builder()
-    .danger_accept_invalid_certs(true)
-    .build()
-    .unwrap();
+        .danger_accept_invalid_certs(true)
+        .build()
+        .unwrap();
 
     let response = client.get("https://www.bcv.org.ve/").send().unwrap();
 

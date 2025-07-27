@@ -34,8 +34,8 @@ o si quieres compilarlo localmente, puedes seguir los pasos siguientes:
 1. Clona este repositorio en tu máquina local 🖥️:
 
    ```bash
-   git clone https://github.com/tu-usuario/conversor-bcv-cli.git
-   cd conversor-bcv-cli
+   git clone https://github.com/S14vcGt/bcv_scraper.git
+   cd bcv_scraper
    ```
 
 2. Compila el proyecto con Cargo 🏗️:
@@ -47,7 +47,7 @@ o si quieres compilarlo localmente, puedes seguir los pasos siguientes:
 3. El archivo ejecutable estará disponible en la carpeta `target/release`. Puedes moverlo a un directorio incluido en tu variable de entorno `PATH` para facilitar su uso 📂:
 
    ```bash
-   mv target/release/conversor-bcv /usr/local/bin/
+   mv target/release/bcv_scraper/usr/local/bin/
    ```
 
 ---
@@ -59,6 +59,7 @@ Una vez instalado, puedes usar el programa ejecutando el siguiente comando 🔧:
 ```bash
 bcv
 ```
+Ademas
 
 El programa mostrará automáticamente las tasas de cambio disponibles para el Bolívar venezolano según el BCV 📈.
 
@@ -68,13 +69,10 @@ El programa mostrará automáticamente las tasas de cambio disponibles para el B
 Al ejecutar el programa, verás una salida similar a esta 🖥️:
 
 ```
-📊 Tasas de Cambio del Bolívar (VES) - Banco Central de Venezuela 🏦
-📅 Fecha: 2023-10-15
-
-Moneda       | Tasa de Cambio
--------------|---------------
-💵 Dólar (USD)  | 35.00
-💶 Euro (EUR)   | 38.50
-💴 Yuan (CNY)   | 5.10
-...
+EUR         143.40314600 
+CNY         17.04523258
+TRY         3.01281624
+RUB         1.53989651
+USD         122.17000000
+Lunes, 28 Julio  2025
 ```
