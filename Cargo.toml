@@ -1,6 +1,6 @@
 [package]
 name = "bcv"
-version = "0.1.2"
+version = "0.1.3"
 edition = "2021"
 authors = ["Sebastián Mata <sebasmata41@outlook.com>"]
 license = "MIT"

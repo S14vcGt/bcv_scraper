@@ -6,44 +6,42 @@ use scraper::element_ref::Select;
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
 struct Cli {
-    /// The name to greet
-    #[arg(short, long)]
-    name: Option<String>,
+    
     #[arg(long)]
     eur: bool,
+
     #[arg(long)]
     cny: bool,
+
     #[arg(long)]
     tl: bool,
+
     #[arg(long)]
     rub: bool,
+
     #[arg(long)]
     usd: bool,
 }
 
 fn main() {
     let mut currencies: Vec<String> = vec::Vec::new();
-
     let cli = Cli::parse();
-
-    if let Some(name) = cli.name {
-        println!("Hello, {}!", name);
-    } else {
-        println!("Hello, stranger!");
-    }
 
     if cli.usd {
         currencies.push("USD".to_string());
     }
-
     if cli.cny {
         currencies.push("CNY".to_string());
     }
-
     if cli.eur {
         currencies.push("EUR".to_string());
     }
-
+    if cli.rub {
+        currencies.push("RUB".to_string());
+    }
+    if cli.tl {
+        currencies.push("TRY".to_string());
+    }
     if !cli.usd && !cli.cny && !cli.eur && !cli.rub && !cli.tl {
         currencies.push("USD".to_string());
         currencies.push("CNY".to_string());
@@ -52,15 +50,14 @@ fn main() {
         currencies.push("TRY".to_string());
     }
 
-    println!("currencies selected: {:?}", currencies);
+    let client = reqwest::blocking::Client::builder()
+    .danger_accept_invalid_certs(true)
+    .build()
+    .unwrap();
 
-    // download the target HTML document
-    let response = reqwest::blocking::get("https://www.bcv.org.ve/");
-    // get the HTML content from the request response
-    // and print it
-    let html_content = response.unwrap().text().unwrap();
-    //println!("{html_content}");
+    let response = client.get("https://www.bcv.org.ve/").send().unwrap();
 
+    let html_content = response.text().unwrap();
     let document = scraper::Html::parse_document(&html_content);
 
     let html_price_selector = scraper::Selector::parse("div.row.recuadrotsmc").unwrap();
@@ -102,7 +99,6 @@ fn main() {
     }
 
     for i in prices {
-        // Limpiar la cadena de moneda eliminando espacios en blanco
         if let Some(currency) = &i.currency {
             let clean_currency = currency.trim();
             if currencies.iter().any(|c| c == clean_currency) {
